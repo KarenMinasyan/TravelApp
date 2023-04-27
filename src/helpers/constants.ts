@@ -7,6 +7,10 @@ export const COLORS = {
 	dark: '#04031D',
 	transparent: 'rgba(0, 0, 0, 0.3)',
 };
+export const SCREENS = {
+	HOME: 'Home',
+	DETAIL: 'Detail',
+} as const;
 
 export const TOURS = [
 	{

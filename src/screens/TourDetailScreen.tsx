@@ -11,11 +11,15 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
-import { COLORS, SPACING } from 'src/helpers/constants';
+import { COLORS, SCREENS, SPACING } from 'src/helpers/constants';
 import { filterTourByIdSelector } from 'src/helpers/reduxSelectors';
 import { useAppSelector } from 'src/hook';
+import { DetailScreenType } from 'src/types';
 
-const TourDetailScreen = ({ navigation }: any) => {
+const { primary, white, dark, light } = COLORS;
+const { HOME } = SCREENS;
+
+const TourDetailScreen = ({ navigation }: DetailScreenType) => {
 	const bottomSheetModalRef = useRef<any>(null);
 	const tour = useAppSelector(filterTourByIdSelector);
 
@@ -26,7 +30,7 @@ const TourDetailScreen = ({ navigation }: any) => {
 	}, []);
 
 	const handleBack = () => {
-		navigation.navigate('Home');
+		navigation.navigate(HOME);
 	};
 
 	return (
@@ -36,11 +40,11 @@ const TourDetailScreen = ({ navigation }: any) => {
 					<SafeAreaView>
 						<View style={styles.container}>
 							<TouchableOpacity style={styles.back} onPress={handleBack}>
-								<Icon name='chevron-back' size={SPACING * 3} color={COLORS.primary} />
+								<Icon name='chevron-back' size={SPACING * 3} color={primary} />
 							</TouchableOpacity>
 							<View style={styles.favorite}>
 								<TouchableOpacity style={styles.heart}>
-									<Icon name='heart-outline' size={SPACING * 3} color={COLORS.primary} />
+									<Icon name='heart-outline' size={SPACING * 3} color={primary} />
 								</TouchableOpacity>
 								<View>
 									{tour.images.map((gallery: any, index: number) => (
@@ -80,7 +84,7 @@ const TourDetailScreen = ({ navigation }: any) => {
 							<View style={styles.info}>
 								<View style={styles.infoWrapper}>
 									<View style={styles.time}>
-										<Icon name='time' size={SPACING * 3} color={COLORS.primary} />
+										<Icon name='time' size={SPACING * 3} color={primary} />
 									</View>
 									<View style={styles.rating}>
 										<Text style={styles.duration}>Duration</Text>
@@ -89,7 +93,7 @@ const TourDetailScreen = ({ navigation }: any) => {
 								</View>
 								<View style={styles.infoWrapper}>
 									<View style={styles.star}>
-										<Icon name='star' size={SPACING * 3} color={COLORS.primary} />
+										<Icon name='star' size={SPACING * 3} color={primary} />
 									</View>
 									<View style={styles.rateWrapper}>
 										<Text style={styles.rate}>Rating</Text>
@@ -105,7 +109,7 @@ const TourDetailScreen = ({ navigation }: any) => {
 					<View style={styles.book}>
 						<TouchableOpacity style={styles.btn}>
 							<Text style={styles.bookNow}>Book Now</Text>
-							<Icon name='arrow-forward' size={SPACING * 3} color={COLORS.white} />
+							<Icon name='arrow-forward' size={SPACING * 3} color={white} />
 						</TouchableOpacity>
 					</View>
 				</BottomSheetModal>
@@ -129,7 +133,7 @@ const styles = StyleSheet.create({
 		height: '100%',
 	},
 	back: {
-		backgroundColor: COLORS.light,
+		backgroundColor: light,
 		width: SPACING * 4,
 		height: SPACING * 4,
 		borderRadius: SPACING * 2,
@@ -142,7 +146,7 @@ const styles = StyleSheet.create({
 		paddingBottom: SPACING * 8,
 	},
 	heart: {
-		backgroundColor: COLORS.light,
+		backgroundColor: light,
 		width: SPACING * 4,
 		height: SPACING * 4,
 		borderRadius: SPACING * 2,
@@ -153,7 +157,7 @@ const styles = StyleSheet.create({
 		width: SPACING * 6,
 		height: SPACING * 6,
 		padding: SPACING / 2,
-		backgroundColor: COLORS.white,
+		backgroundColor: white,
 		borderRadius: SPACING,
 		marginBottom: SPACING,
 	},
@@ -163,7 +167,7 @@ const styles = StyleSheet.create({
 		borderRadius: SPACING,
 	},
 	detail: {
-		backgroundColor: COLORS.white,
+		backgroundColor: white,
 		padding: SPACING * 3,
 		borderRadius: SPACING * 3,
 		bottom: SPACING * 3,
@@ -175,7 +179,7 @@ const styles = StyleSheet.create({
 	tourTitle: {
 		fontSize: SPACING * 2,
 		fontWeight: 'bold',
-		color: COLORS.dark,
+		color: dark,
 	},
 	cost: {
 		flexDirection: 'row',
@@ -184,7 +188,7 @@ const styles = StyleSheet.create({
 	price: {
 		fontSize: SPACING * 2,
 		fontWeight: 'bold',
-		color: COLORS.dark,
+		color: dark,
 	},
 	tabs: {
 		marginVertical: SPACING * 2,
@@ -198,7 +202,7 @@ const styles = StyleSheet.create({
 		marginRight: SPACING * 2,
 	},
 	overview: {
-		color: COLORS.primary,
+		color: primary,
 		fontWeight: 'bold',
 		fontSize: SPACING * 1.7,
 	},
@@ -210,8 +214,8 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 	},
 	time: {
-		backgroundColor: COLORS.white,
-		shadowColor: COLORS.dark,
+		backgroundColor: white,
+		shadowColor: dark,
 		shadowOffset: { width: SPACING / 2, height: SPACING },
 		shadowRadius: SPACING / 2,
 		shadowOpacity: 0.2,
@@ -233,8 +237,8 @@ const styles = StyleSheet.create({
 		fontWeight: '700',
 	},
 	star: {
-		backgroundColor: COLORS.white,
-		shadowColor: COLORS.dark,
+		backgroundColor: white,
+		shadowColor: dark,
 		shadowOffset: { width: SPACING / 2, height: SPACING },
 		shadowRadius: SPACING / 2,
 		shadowOpacity: 0.1,
@@ -256,7 +260,7 @@ const styles = StyleSheet.create({
 		fontWeight: '700',
 	},
 	description: {
-		color: COLORS.dark,
+		color: dark,
 	},
 	book: {
 		position: 'absolute',
@@ -264,7 +268,7 @@ const styles = StyleSheet.create({
 		width: '100%',
 	},
 	btn: {
-		backgroundColor: COLORS.primary,
+		backgroundColor: primary,
 		padding: SPACING * 1.5,
 		marginHorizontal: SPACING * 1.6,
 		borderRadius: SPACING * 2,
@@ -272,7 +276,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 	},
 	bookNow: {
-		color: COLORS.white,
+		color: white,
 		fontSize: SPACING * 2,
 		fontWeight: 'bold',
 		marginRight: SPACING * 7,

@@ -10,19 +10,23 @@ import {
 	View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { ADVANTURES, CATEGORIES, COLORS, SPACING } from 'src/helpers/constants';
+import { ADVANTURES, CATEGORIES, COLORS, SCREENS, SPACING } from 'src/helpers/constants';
 import { useAppDispatch } from 'src/hook';
 import { chosenTourId } from 'src/store/tours/toursSlice';
+import { HomeScreenType } from 'src/types';
+
+const { primary, dark, white, transparent } = COLORS;
+const { DETAIL } = SCREENS;
 
 const { width } = Dimensions.get('window');
 
-const HomeScreen = ({ navigation }: any) => {
+const HomeScreen = ({ navigation }: HomeScreenType) => {
 	const [activeCategory, setActiveCategory] = useState(0);
 	const dispatch = useAppDispatch();
 
 	const handleChooseTour = (id: number) => () => {
 		dispatch(chosenTourId(id));
-		navigation.navigate('Detail');
+		navigation.navigate(DETAIL);
 	};
 
 	return (
@@ -39,12 +43,7 @@ const HomeScreen = ({ navigation }: any) => {
 							key={category.id}
 							onPress={() => setActiveCategory(index)}
 						>
-							<Text
-								style={[
-									styles.categoryTitle,
-									activeCategory === index && { color: COLORS.primary },
-								]}
-							>
+							<Text style={[styles.categoryTitle, activeCategory === index && { color: primary }]}>
 								{category.title}
 							</Text>
 						</TouchableOpacity>
@@ -66,7 +65,7 @@ const HomeScreen = ({ navigation }: any) => {
 						<TouchableOpacity style={styles.card} key={index} onPress={handleChooseTour(index)}>
 							<View style={styles.tour}>
 								<TouchableOpacity style={styles.favorite}>
-									<Icon name='heart-outline' size={SPACING * 4} color={COLORS.primary} />
+									<Icon name='heart-outline' size={SPACING * 4} color={primary} />
 								</TouchableOpacity>
 								<Text style={styles.tourTitle}>{tour.title}</Text>
 							</View>
@@ -114,7 +113,7 @@ const styles = StyleSheet.create({
 	discoverTitle: {
 		fontSize: SPACING * 3,
 		fontWeight: 'bold',
-		color: COLORS.dark,
+		color: dark,
 	},
 	account: {
 		height: SPACING * 5,
@@ -129,11 +128,11 @@ const styles = StyleSheet.create({
 	},
 	categoryTitle: {
 		fontSize: SPACING * 2,
-		color: COLORS.dark,
+		color: dark,
 	},
 	activities: {
 		fontSize: SPACING * 1.7,
-		color: COLORS.dark,
+		color: dark,
 	},
 	tours: {
 		marginVertical: SPACING * 2,
@@ -150,21 +149,21 @@ const styles = StyleSheet.create({
 		zIndex: 1,
 		height: '100%',
 		width: '100%',
-		backgroundColor: COLORS.transparent,
+		backgroundColor: transparent,
 		justifyContent: 'space-between',
 		padding: SPACING,
 	},
 	favorite: {
 		alignSelf: 'flex-end',
 		padding: SPACING / 2,
-		backgroundColor: COLORS.white,
+		backgroundColor: white,
 		borderRadius: SPACING * 5,
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
 	tourTitle: {
 		fontSize: SPACING * 2,
-		color: COLORS.white,
+		color: white,
 		fontWeight: '700',
 		marginLeft: SPACING,
 	},
@@ -180,12 +179,12 @@ const styles = StyleSheet.create({
 	feeling: {
 		fontSize: SPACING * 2,
 		fontWeight: 'bold',
-		color: COLORS.dark,
+		color: dark,
 	},
 	all: {
 		fontSize: SPACING * 1.4,
 		fontWeight: '500',
-		color: COLORS.primary,
+		color: primary,
 	},
 	adventures: {
 		marginVertical: SPACING * 2,
