@@ -13,8 +13,9 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { COLORS, SCREENS, SPACING } from 'src/helpers/constants';
 import { filterTourByIdSelector } from 'src/helpers/reduxSelectors';
-import { useAppSelector } from 'src/hook';
+import { useAppDispatch, useAppSelector } from "src/hook";
 import { DetailScreenType } from 'src/types';
+import { changeImage } from "src/store/tours/toursSlice";
 
 const { primary, white, dark, light } = COLORS;
 const { HOME } = SCREENS;
@@ -23,11 +24,17 @@ const TourDetailScreen = ({ navigation }: DetailScreenType) => {
 	const bottomSheetModalRef = useRef<any>(null);
 	const tour = useAppSelector(filterTourByIdSelector);
 
+	const dispatch = useAppDispatch();
+
 	const snapPoints = useMemo(() => ['40%', '60%'], []);
 
 	useEffect(() => {
 		bottomSheetModalRef.current?.present();
 	}, []);
+
+	const handleChangeImage = (id: number) => () => {
+		dispatch(changeImage(id));
+	};
 
 	const handleBack = () => {
 		navigation.navigate(HOME);
@@ -48,7 +55,7 @@ const TourDetailScreen = ({ navigation }: DetailScreenType) => {
 								</TouchableOpacity>
 								<View>
 									{tour.images.map((gallery: any, index: number) => (
-										<TouchableOpacity key={index} style={styles.tour}>
+										<TouchableOpacity key={index} style={styles.tour} onPress={handleChangeImage(index)}>
 											<Image source={gallery.image} style={styles.tourImg} />
 										</TouchableOpacity>
 									))}

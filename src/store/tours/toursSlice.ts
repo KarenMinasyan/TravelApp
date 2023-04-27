@@ -9,8 +9,16 @@ const toursSlice = createSlice({
 		chosenTourId: (state, { payload }) => {
 			state.chosenId = payload;
 		},
+		changeImage: (state, { payload }) => {
+			state.allTours = state.allTours.map((item: any, index: number) => {
+				if (index === state.chosenId) {
+					item.image = item.images[payload].image;
+				}
+				return item;
+			});
+		},
 	},
 });
 
-export const { chosenTourId } = toursSlice.actions;
+export const { chosenTourId, changeImage } = toursSlice.actions;
 export default toursSlice.reducer;
