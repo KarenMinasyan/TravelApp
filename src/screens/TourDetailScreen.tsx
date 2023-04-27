@@ -13,9 +13,9 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { COLORS, SCREENS, SPACING } from 'src/helpers/constants';
 import { filterTourByIdSelector } from 'src/helpers/reduxSelectors';
-import { useAppDispatch, useAppSelector } from "src/hook";
+import { useAppDispatch, useAppSelector } from 'src/hook';
+import { changeImage } from 'src/store/tours/toursSlice';
 import { DetailScreenType } from 'src/types';
-import { changeImage } from "src/store/tours/toursSlice";
 
 const { primary, white, dark, light } = COLORS;
 const { HOME } = SCREENS;
@@ -55,7 +55,11 @@ const TourDetailScreen = ({ navigation }: DetailScreenType) => {
 								</TouchableOpacity>
 								<View>
 									{tour.images.map((gallery: any, index: number) => (
-										<TouchableOpacity key={index} style={styles.tour} onPress={handleChangeImage(index)}>
+										<TouchableOpacity
+											key={index}
+											style={styles.tour}
+											onPress={handleChangeImage(index)}
+										>
 											<Image source={gallery.image} style={styles.tourImg} />
 										</TouchableOpacity>
 									))}
