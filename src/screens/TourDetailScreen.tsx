@@ -1,6 +1,5 @@
-import React, { useCallback, useEffect, useMemo, useRef } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import {
-  Button,
   Image,
   ImageBackground,
   SafeAreaView,
@@ -12,16 +11,24 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { COLORS, SPACING } from "../helpers/constants";
-import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { BottomSheetModal, BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import { useAppSelector } from "../hook";
+import { filterTourByIdSelector } from "../helpers/reduxSelectors";
+import navigations from "../navigations";
 
-const TourDetailScreen = ({ tour }: any) => {
+const TourDetailScreen = ({ navigation }: any) => {
   const bottomSheetModalRef = useRef<any>(null);
+  const tour = useAppSelector(filterTourByIdSelector);
 
-  const snapPoints = useMemo(() => ['40%','60%'], []);
+  const snapPoints = useMemo(() => ["40%", "60%"], []);
 
   useEffect(() => {
-    bottomSheetModalRef.current?.present()
-  }, [])
+    bottomSheetModalRef.current?.present();
+  }, []);
+
+  const handleBack = () => {
+    navigation.navigate('Home');
+  }
 
   return (
     <BottomSheetModalProvider>
@@ -29,7 +36,7 @@ const TourDetailScreen = ({ tour }: any) => {
         <ImageBackground source={tour.image} style={styles.preview}>
           <SafeAreaView>
             <View style={styles.container}>
-              <TouchableOpacity style={styles.back}>
+              <TouchableOpacity style={styles.back} onPress={handleBack}>
                 <Icon name="chevron-back" size={SPACING * 3} color={COLORS.primary} />
               </TouchableOpacity>
               <View style={styles.favorite}>
@@ -51,51 +58,51 @@ const TourDetailScreen = ({ tour }: any) => {
           ref={bottomSheetModalRef}
           index={0}
           snapPoints={snapPoints}
-          backgroundStyle={{ borderRadius: SPACING * 3, }}
+          backgroundStyle={{ borderRadius: SPACING * 3 }}
           enablePanDownToClose={false}
         >
-        <View style={styles.detail}>
-          <View style={styles.detailWrapper}>
-            <Text style={styles.tourTitle}>{tour.title}</Text>
-            <View style={styles.cost}>
-              <Text style={styles.price}>{tour.price}</Text>
-              <Text>/person</Text>
-            </View>
-          </View>
-          <View style={styles.tabs}>
-            <View style={styles.tabsWrapper}>
-              <TouchableOpacity style={styles.tab}>
-                <Text style={styles.overview}>Overview</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.tab}>
-                <Text>Reviews</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.info}>
-              <View style={styles.infoWrapper}>
-                <View style={styles.time}>
-                  <Icon name="time" size={SPACING * 3} color={COLORS.primary} />
-                </View>
-                <View style={styles.rating}>
-                  <Text style={styles.duration}>Duration</Text>
-                  <Text style={styles.tourDuration}>{tour.duration}</Text>
-                </View>
-              </View>
-              <View style={styles.infoWrapper}>
-                <View style={styles.star}>
-                  <Icon name="star" size={SPACING * 3} color={COLORS.primary} />
-                </View>
-                <View style={styles.rateWrapper}>
-                  <Text style={styles.rate}>Rating</Text>
-                  <Text style={styles.outOf}>{tour.rating} out of 5</Text>
-                </View>
+          <View style={styles.detail}>
+            <View style={styles.detailWrapper}>
+              <Text style={styles.tourTitle}>{tour.title}</Text>
+              <View style={styles.cost}>
+                <Text style={styles.price}>{tour.price}</Text>
+                <Text>/person</Text>
               </View>
             </View>
-            <View>
-              <Text style={styles.description}>{tour.description}</Text>
+            <View style={styles.tabs}>
+              <View style={styles.tabsWrapper}>
+                <TouchableOpacity style={styles.tab}>
+                  <Text style={styles.overview}>Overview</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.tab}>
+                  <Text>Reviews</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.info}>
+                <View style={styles.infoWrapper}>
+                  <View style={styles.time}>
+                    <Icon name="time" size={SPACING * 3} color={COLORS.primary} />
+                  </View>
+                  <View style={styles.rating}>
+                    <Text style={styles.duration}>Duration</Text>
+                    <Text style={styles.tourDuration}>{tour.duration}</Text>
+                  </View>
+                </View>
+                <View style={styles.infoWrapper}>
+                  <View style={styles.star}>
+                    <Icon name="star" size={SPACING * 3} color={COLORS.primary} />
+                  </View>
+                  <View style={styles.rateWrapper}>
+                    <Text style={styles.rate}>Rating</Text>
+                    <Text style={styles.outOf}>{tour.rating} out of 5</Text>
+                  </View>
+                </View>
+              </View>
+              <View>
+                <Text style={styles.description}>{tour.description}</Text>
+              </View>
             </View>
           </View>
-        </View>
           <View style={styles.book}>
             <TouchableOpacity style={styles.btn}>
               <Text style={styles.bookNow}>Book Now</Text>

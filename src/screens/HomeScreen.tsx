@@ -2,11 +2,20 @@ import React, { useState } from "react";
 import { Dimensions, Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { ADVANTURES, CATEGORIES, COLORS, SPACING } from "../helpers/constants";
+import { useAppDispatch } from "../hook";
+import { chosenTourId } from "../store/tours/toursSlice";
 
 const { width } = Dimensions.get("window");
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }: any) => {
   const [activeCategory, setActiveCategory] = useState(0);
+  const dispatch = useAppDispatch();
+
+  const handleChooseTour = (id: number) => () => {
+    dispatch(chosenTourId(id))
+    navigation.navigate('Detail');
+  };
+
   return (
     <SafeAreaView>
       <View style={styles.container}>
@@ -42,7 +51,7 @@ const HomeScreen = () => {
           style={styles.tours}
         >
           {CATEGORIES[activeCategory].tours.map((tour, index) => (
-            <TouchableOpacity style={styles.card} key={index}>
+            <TouchableOpacity style={styles.card} key={index} onPress={handleChooseTour(index)}>
               <View style={styles.tour}>
                 <TouchableOpacity style={styles.favorite}>
                   <Icon name="heart-outline" size={SPACING * 4} color={COLORS.primary} />
