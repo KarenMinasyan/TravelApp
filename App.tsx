@@ -1,9 +1,9 @@
 import React from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Provider } from 'react-redux';
+import { store } from 'src/store/store';
 
 import Navigation from './src/navigations';
-import { store } from './src/store/store';
 
 const App = () => (
 	<GestureHandlerRootView style={{ flex: 1 }}>

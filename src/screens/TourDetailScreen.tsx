@@ -122,6 +122,7 @@ const styles = StyleSheet.create({
 		height: 500,
 	},
 	container: {
+		marginTop: SPACING,
 		paddingHorizontal: SPACING,
 		justifyContent: 'space-between',
 		flexDirection: 'row',
