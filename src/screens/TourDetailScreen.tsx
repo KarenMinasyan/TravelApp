@@ -11,17 +11,18 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
 import { COLORS, SCREENS, SPACING } from 'src/helpers/constants';
 import { filterTourByIdSelector } from 'src/helpers/reduxSelectors';
 import { useAppDispatch, useAppSelector } from 'src/hook';
 import { changeImage } from 'src/store/tours/toursSlice';
-import { DetailScreenType } from 'src/types';
+import { DetailScreenType, TourUniversalType } from 'src/types';
 
 const { primary, white, dark, light } = COLORS;
 const { HOME } = SCREENS;
 
 const TourDetailScreen = ({ navigation }: DetailScreenType) => {
-	const bottomSheetModalRef = useRef<any>(null);
+	const bottomSheetModalRef = useRef<BottomSheetModalMethods | null>(null);
 	const tour = useAppSelector(filterTourByIdSelector);
 
 	const dispatch = useAppDispatch();
@@ -54,7 +55,7 @@ const TourDetailScreen = ({ navigation }: DetailScreenType) => {
 									<Icon name='heart-outline' size={SPACING * 3} color={primary} />
 								</TouchableOpacity>
 								<View>
-									{tour.images.map((gallery: any, index: number) => (
+									{tour.images.map((gallery: TourUniversalType, index: number) => (
 										<TouchableOpacity
 											key={index}
 											style={styles.tour}

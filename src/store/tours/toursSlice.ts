@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { TourType } from 'src/types';
 
 import { initialState } from './initialState';
 
@@ -10,7 +11,7 @@ const toursSlice = createSlice({
 			state.chosenId = payload;
 		},
 		changeImage: (state, { payload }) => {
-			state.allTours = state.allTours.map((item: any, index: number) => {
+			state.allTours = state.allTours.map((item: TourType, index: number) => {
 				if (index === state.chosenId) {
 					item.image = item.images[payload].image;
 				}

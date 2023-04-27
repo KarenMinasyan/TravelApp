@@ -21,7 +21,7 @@ const { DETAIL } = SCREENS;
 const { width } = Dimensions.get('window');
 
 const HomeScreen = ({ navigation }: HomeScreenType) => {
-	const [activeCategory, setActiveCategory] = useState(0);
+	const [activeCategory, setActiveCategory] = useState<number>(0);
 	const dispatch = useAppDispatch();
 
 	const handleChooseTour = (id: number) => () => {

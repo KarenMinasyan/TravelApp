@@ -1,4 +1,5 @@
 import { store } from 'src/store/store';
+import { AdventuresType, CategoryType } from 'src/types';
 
 export const SPACING: number = 10;
 
@@ -16,7 +17,7 @@ export const SCREENS = {
 
 const TOURS = store.getState().tours.allTours;
 
-export const CATEGORIES = [
+export const CATEGORIES: CategoryType[] = [
 	{
 		id: 1,
 		title: 'Sights',
@@ -34,7 +35,7 @@ export const CATEGORIES = [
 	},
 ];
 
-export const ADVANTURES = [
+export const ADVANTURES: AdventuresType[] = [
 	{
 		id: 1,
 		title: 'Kayaking',

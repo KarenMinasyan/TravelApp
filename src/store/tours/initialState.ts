@@ -1,4 +1,6 @@
-export const initialState: any = {
+import { ToursInitialType } from 'src/types';
+
+export const initialState: ToursInitialType = {
 	allTours: [
 		{
 			id: 1,
