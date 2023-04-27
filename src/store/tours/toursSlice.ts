@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { initialState } from "./initialState";
+
+import { initialState } from './initialState';
 
 const toursSlice = createSlice({
 	name: 'tours',
@@ -7,7 +8,7 @@ const toursSlice = createSlice({
 	reducers: {
 		chosenTourId: (state, { payload }) => {
 			state.chosenId = payload;
-		}
+		},
 	},
 });
 
