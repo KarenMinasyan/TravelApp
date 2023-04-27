@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import {
+  Button,
   Image,
   ImageBackground,
   SafeAreaView,
@@ -11,10 +12,19 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { COLORS, SPACING } from "../helpers/constants";
+import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
 const TourDetailScreen = ({ tour }: any) => {
+  const bottomSheetModalRef = useRef<any>(null);
+
+  const snapPoints = useMemo(() => ['40%','60%'], []);
+
+  useEffect(() => {
+    bottomSheetModalRef.current?.present()
+  }, [])
+
   return (
-    <>
+    <BottomSheetModalProvider>
       <ScrollView>
         <ImageBackground source={tour.image} style={styles.preview}>
           <SafeAreaView>
@@ -37,6 +47,13 @@ const TourDetailScreen = ({ tour }: any) => {
             </View>
           </SafeAreaView>
         </ImageBackground>
+        <BottomSheetModal
+          ref={bottomSheetModalRef}
+          index={0}
+          snapPoints={snapPoints}
+          backgroundStyle={{ borderRadius: SPACING * 3, }}
+          enablePanDownToClose={false}
+        >
         <View style={styles.detail}>
           <View style={styles.detailWrapper}>
             <Text style={styles.tourTitle}>{tour.title}</Text>
@@ -79,14 +96,15 @@ const TourDetailScreen = ({ tour }: any) => {
             </View>
           </View>
         </View>
+          <View style={styles.book}>
+            <TouchableOpacity style={styles.btn}>
+              <Text style={styles.bookNow}>Book Now</Text>
+              <Icon name="arrow-forward" size={SPACING * 3} color={COLORS.white} />
+            </TouchableOpacity>
+          </View>
+        </BottomSheetModal>
       </ScrollView>
-      <View style={styles.book}>
-        <TouchableOpacity style={styles.btn}>
-          <Text style={styles.bookNow}>Book Now</Text>
-          <Icon name="arrow-forward" size={SPACING * 3} color={COLORS.white} />
-        </TouchableOpacity>
-      </View>
-    </>
+    </BottomSheetModalProvider>
   );
 };
 
@@ -139,7 +157,7 @@ const styles = StyleSheet.create({
   },
   detail: {
     backgroundColor: COLORS.white,
-    padding: SPACING * 2,
+    padding: SPACING * 3,
     borderRadius: SPACING * 3,
     bottom: SPACING * 3
   },
