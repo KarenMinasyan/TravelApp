@@ -1,8 +1,9 @@
 import { ImageSourcePropType } from 'react-native';
+import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { SCREENS } from 'src/helpers/constants';
 
-const { HOME, DETAIL } = SCREENS;
+const { HOME, DETAIL, MAIN } = SCREENS;
 
 export type TourUniversalType = {
 	id: number;
@@ -38,12 +39,20 @@ declare global {
 }
 
 export type RootStackParamList = {
-	Home: undefined;
+	Main: BottomTabScreenProps<TabParamList>;
 	Detail: undefined;
 };
 
-export type HomeScreenType = NativeStackScreenProps<RootStackParamList, typeof HOME>;
+export type TabParamList = {
+	Home: undefined;
+	Search: undefined;
+	Favorite: undefined;
+	Settings: undefined;
+};
+
+export type MainScreenType = NativeStackScreenProps<RootStackParamList, typeof MAIN>;
 export type DetailScreenType = NativeStackScreenProps<RootStackParamList, typeof DETAIL>;
+export type HomeScreenType = BottomTabScreenProps<TabParamList, typeof HOME>;
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
 	RootStackParamList,

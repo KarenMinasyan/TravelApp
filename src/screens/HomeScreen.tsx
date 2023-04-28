@@ -13,14 +13,13 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { ADVANTURES, CATEGORIES, COLORS, SCREENS, SPACING } from 'src/helpers/constants';
 import { useAppDispatch } from 'src/hook';
 import { chosenTourId } from 'src/store/tours/toursSlice';
-import { HomeScreenType } from 'src/types';
 
 const { primary, dark, white, transparent } = COLORS;
 const { DETAIL } = SCREENS;
 
 const { width } = Dimensions.get('window');
 
-const HomeScreen = ({ navigation }: HomeScreenType) => {
+const HomeScreen = ({ navigation }: any) => {
 	const [activeCategory, setActiveCategory] = useState<number>(0);
 	const dispatch = useAppDispatch();
 
@@ -121,7 +120,7 @@ const styles = StyleSheet.create({
 		borderRadius: SPACING * 5,
 	},
 	categories: {
-		marginVertical: SPACING * 2,
+		marginVertical: SPACING,
 	},
 	category: {
 		marginRight: SPACING,

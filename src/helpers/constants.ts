@@ -13,6 +13,7 @@ export const COLORS = {
 export const SCREENS = {
 	HOME: 'Home',
 	DETAIL: 'Detail',
+	MAIN: 'Main',
 } as const;
 
 const TOURS = store.getState().tours.allTours;

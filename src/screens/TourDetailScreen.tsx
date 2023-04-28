@@ -16,12 +16,12 @@ import { COLORS, SCREENS, SPACING } from 'src/helpers/constants';
 import { filterTourByIdSelector } from 'src/helpers/reduxSelectors';
 import { useAppDispatch, useAppSelector } from 'src/hook';
 import { changeImage } from 'src/store/tours/toursSlice';
-import { DetailScreenType, TourUniversalType } from 'src/types';
+import { TourUniversalType } from 'src/types';
 
 const { primary, white, dark, light } = COLORS;
 const { HOME } = SCREENS;
 
-const TourDetailScreen = ({ navigation }: DetailScreenType) => {
+const TourDetailScreen = ({ navigation }: any) => {
 	const bottomSheetModalRef = useRef<BottomSheetModalMethods | null>(null);
 	const tour = useAppSelector(filterTourByIdSelector);
 
